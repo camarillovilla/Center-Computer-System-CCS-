@@ -1,0 +1,27 @@
+.botonIniciarSesion:hover {
+    -fx-opacity: 0.8;
+}
+
+.lateralMenuButton:hover {
+    -fx-border-color: #2d1673;
+    -fx-border-width: 0px 0px 0px 7px;
+    -fx-opacity: 0.7;
+}
+
+.campoInicioSesion {
+    -fx-background-color: white;
+    -fx-border-color: #5e5e5e;
+    -fx-border-width: 0px 0px 1px 0px;
+}
+
+.campoInicioSesion:hover {
+   -fx-border-color: black;
+   -fx-border-width: 0px 0px 1.5px 0px; 
+}
+
+.imagenMenu:hover {
+    -fx-opacity: 0.5;
+}
+.botonesGuis:hover {
+   -fx-opacity: 0.85;
+}
