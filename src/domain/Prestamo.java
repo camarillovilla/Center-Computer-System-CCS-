@@ -15,6 +15,7 @@ public class Prestamo {
     private String claveDispositivoPrestado;
     private int prestatarioId;
     private String nombreRegistra; 
+    private String nombrePrestatario; 
 
     public Prestamo(int prestamoId, String lugar, Date fechaPrestamo, String claveDispositivoPrestado, int prestatarioId, String nombreRegistra) {
         this.prestamoId = prestamoId;
@@ -32,6 +33,9 @@ public class Prestamo {
         this.prestatarioId = prestatarioId;
         this.nombreRegistra = nombreRegistra;
     }
+
+    public Prestamo() {
+    }        
 
     public int getPrestamoId() {
         return prestamoId;
@@ -57,6 +61,10 @@ public class Prestamo {
         return nombreRegistra;
     }
 
+    public String getNombrePrestatario() {
+        return nombrePrestatario;
+    }
+    
     public void setPrestamoId(int prestamoId) {
         this.prestamoId = prestamoId;
     }
@@ -81,10 +89,14 @@ public class Prestamo {
         this.nombreRegistra = nombreRegistra;
     }
 
+    public void setNombrePrestatario(String nombrePrestatario) {
+        this.nombrePrestatario = nombrePrestatario;
+    }        
+
     @Override
     public String toString() {
-        return "Prestamo{" + "prestamoId=" + prestamoId + ", lugar=" + lugar + ", fechaPrestamo=" + fechaPrestamo + ", claveDispositivoPrestado=" + claveDispositivoPrestado + ", prestatarioId=" + prestatarioId + ", nombreRegistra=" + nombreRegistra + '}';
-    }
+        return "Prestamo{" + "prestamoId=" + prestamoId + ", lugar=" + lugar + ", fechaPrestamo=" + fechaPrestamo + ", claveDispositivoPrestado=" + claveDispositivoPrestado + ", prestatarioId=" + prestatarioId + ", nombreRegistra=" + nombreRegistra + ", nombrePrestatario=" + nombrePrestatario + '}';
+    }   
     
     @Override
     public boolean equals(Object obj) {

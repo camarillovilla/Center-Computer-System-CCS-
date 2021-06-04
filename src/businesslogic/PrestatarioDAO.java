@@ -1,7 +1,10 @@
-package domain;
+package businesslogic;
 
+import businesslogic.IPrestatarioDAO;
 import businesslogic.DispositivoDAO;
 import dataaccess.Conexion;
+import domain.Prestamo;
+import domain.Prestatario;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

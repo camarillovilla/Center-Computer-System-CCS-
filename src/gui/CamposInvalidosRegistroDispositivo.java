@@ -25,6 +25,13 @@ public class CamposInvalidosRegistroDispositivo {
         this.claveProyectorControlValida = claveProyectorControlValida;
     }
 
+    public CamposInvalidosRegistroDispositivo(boolean categoriaDispositivoValida) {
+        this.categoriaDispositivoValida = categoriaDispositivoValida;
+    }   
+        
+    public CamposInvalidosRegistroDispositivo() {
+    }
+
     public boolean getCategoriaDispositivoValida() {
         return categoriaDispositivoValida;
     }

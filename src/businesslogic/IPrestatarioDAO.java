@@ -1,5 +1,7 @@
-package domain;
+package businesslogic;
 
+import domain.Prestamo;
+import domain.Prestatario;
 import java.util.ArrayList;
 
 /**

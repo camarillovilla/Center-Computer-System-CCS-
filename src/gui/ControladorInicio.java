@@ -13,7 +13,7 @@ import domain.Dispositivo;
 import domain.Laptop;
 import domain.Prestamo;
 import domain.Prestatario;
-import domain.PrestatarioDAO;
+import businesslogic.PrestatarioDAO;
 import domain.Proyector;
 import domain.Responsable;
 import java.net.URL;
@@ -137,6 +137,8 @@ public class ControladorInicio implements Initializable {
     private ImageView imageViewMantenimiento;
     @FXML
     private ImageView imageViewReporte;    
+    @FXML
+    private ImageView imageViewSalir;
     @FXML
     private Label labelContrasenasIguales;    
     @FXML
@@ -443,6 +445,8 @@ public class ControladorInicio implements Initializable {
             imageViewRegistrarDispositivoProyector.setDisable(true);
             imageViewRegistrarDispositivoCable.setDisable(true);
             imageViewRegistrarDispositivoCirculo.setDisable(true);
+            imageViewSalir.setDisable(true);
+            imageViewSalir.setDisable(true);
             datePickerReporteFechaBusqueda.setDisable(true);
         }
     }
@@ -933,27 +937,30 @@ public class ControladorInicio implements Initializable {
                 claveProyectorControlValida = true;
             }
         }
-        int resultadoExitoso = 0;
         String nombreRegistro = labelNombreUsuarioCargado.getText();
         boolean existeRegistro = false; 
         for (int i = 0; i < dispositivoDAO.consultarTodosDispositivos().size(); i++) {
             String claveDispositivoEsperada = dispositivoDAO.consultarTodosDispositivos().get(i).getClave();
-            if (claveDispositivo.equals(claveDispositivoEsperada)) {
-                existeRegistro = true; 
+            if (claveDispositivo != null) { 
+                if (claveDispositivo.equals(claveDispositivoEsperada)) {
+                    existeRegistro = true; 
+                }
             }
         }
+        CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
         if (claveDispositivoValida && descripcionDispositivoValida && estatusDispositivoValido && fechaIngresoDispositivoValida && !existeRegistro) {      
             if (categoriaDispositivo.equals("Cable")) {
                 boolean cableRepetido = false; 
                 Cable cable = new Cable(claveDispositivo, descripcionDispositivo, estatusDispositivo, convertToDate(fechaIngresoDispositivo), nombreRegistro);
                 String claveControlEsperada = null;
-                CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
+                //
                 mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
                 for (int i = 0; i < dispositivoDAO.consultarListaCables().size(); i++) {
-                    claveControlEsperada = dispositivoDAO.consultarListaCables().get(i).getClave();
-                    if (claveDispositivo.equals(claveControlEsperada)) {
-                        claveControlEsperada = dispositivoDAO.consultarListaCables().get(i).getClave();
-                        cableRepetido = true;
+                    claveControlEsperada = dispositivoDAO.consultarListaCables().get(i).getClave();                   
+                    if (claveDispositivo != null) {
+                        if (claveDispositivo.equals(claveControlEsperada)) {                            
+                            cableRepetido = true;
+                        }
                     }
                 } 
                 if (cableRepetido) {
@@ -969,13 +976,14 @@ public class ControladorInicio implements Initializable {
                 boolean conectorRepetido = false; 
                 Conector conector = new Conector(claveDispositivo, descripcionDispositivo, estatusDispositivo, convertToDate(fechaIngresoDispositivo), nombreRegistro);
                 String claveConectorEsperada = null;
-                CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
+                //camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
                 mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
                 for (int i = 0; i < dispositivoDAO.consultarListaConectores().size(); i++) {
                     claveConectorEsperada = dispositivoDAO.consultarListaConectores().get(i).getClave();
-                    if (claveDispositivo.equals(claveConectorEsperada)) {
-                        claveConectorEsperada = dispositivoDAO.consultarListaCables().get(i).getClave();
-                        conectorRepetido = true;
+                    if (claveDispositivo != null) {
+                        if (claveDispositivo.equals(claveConectorEsperada)) {
+                            conectorRepetido = true;
+                        }
                     }
                 } 
                 if (conectorRepetido) {
@@ -991,13 +999,14 @@ public class ControladorInicio implements Initializable {
                 boolean controlRepetido = false; 
                 Control control = new Control(claveDispositivo, descripcionDispositivo, estatusDispositivo, convertToDate(fechaIngresoDispositivo), lugarProyectorControl, claveProyectorControl, nombreRegistro);
                 String claveControlEsperada = null;
-                CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
+                //camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
                 mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
                 for (int i = 0; i < dispositivoDAO.consultarListaControles().size(); i++) {
                     claveControlEsperada = dispositivoDAO.consultarListaControles().get(i).getClave();
-                    if (claveDispositivo.equals(claveControlEsperada)) {
-                        claveControlEsperada = dispositivoDAO.consultarListaLaptops().get(i).getClave();
-                        controlRepetido = true;
+                    if (claveDispositivo != null) {
+                        if (claveDispositivo.equals(claveControlEsperada)) {
+                            controlRepetido = true;
+                        }
                     }
                 } 
                 if (controlRepetido) {
@@ -1013,13 +1022,14 @@ public class ControladorInicio implements Initializable {
                 boolean laptopRepetida = false; 
                 Laptop laptop = new Laptop(claveDispositivo, descripcionDispositivo, estatusDispositivo, convertToDate(fechaIngresoDispositivo), nombreRegistro);
                 String claveLaptopEsperada = null;
-                CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
+                //camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
                 mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
                 for (int i = 0; i < dispositivoDAO.consultarListaLaptops().size(); i++) {
                     claveLaptopEsperada = dispositivoDAO.consultarListaLaptops().get(i).getClave();
-                    if (claveDispositivo.equals(claveLaptopEsperada)) {
-                        claveLaptopEsperada = dispositivoDAO.consultarListaLaptops().get(i).getClave();
-                        laptopRepetida = true;
+                    if (claveDispositivo != null) {
+                        if (claveDispositivo.equals(claveLaptopEsperada)) {
+                            laptopRepetida = true;
+                        }
                     }
                 } 
                 if (laptopRepetida) {
@@ -1035,13 +1045,14 @@ public class ControladorInicio implements Initializable {
                 boolean proyectorRepetido = false; 
                 Proyector proyector = new Proyector(claveDispositivo, descripcionDispositivo, estatusDispositivo, convertToDate(fechaIngresoDispositivo), nombreRegistro);
                 String claveProyectorEsperada = null;
-                CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
+                //camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
                 mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
                 for (int i = 0; i < dispositivoDAO.consultarListaProyectores().size(); i++) {
                     claveProyectorEsperada = dispositivoDAO.consultarListaProyectores().get(i).getClave();
-                    if (claveDispositivo.equals(claveProyectorEsperada)) {
-                        claveProyectorEsperada = dispositivoDAO.consultarListaProyectores().get(i).getClave();
-                        proyectorRepetido = true;
+                    if (claveDispositivo != null) {
+                        if (claveDispositivo.equals(claveProyectorEsperada)) {
+                            proyectorRepetido = true;
+                        }
                     }
                 } 
                 if (proyectorRepetido) {
@@ -1053,9 +1064,17 @@ public class ControladorInicio implements Initializable {
                     mostrarGuiConfirmacionRegistroDispositivo();
                 }                
             }
+        } else if (existeRegistro) {
+            mostrarGuiRegistroRepetido();
+            mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
+            String bordeRojo = "-fx-background-color: #fcbdb8";
+            String bordeVerde = "-fx-background-color: #bbfcb8";
+            String fondoRedondeado = "-fx-background-radius: 20";
+            textFieldClaveRegistroDispositivo.setStyle(bordeRojo + fondoRedondeado);
+        
         } else {
             mostrarGuiCamposInvalidos();
-            CamposInvalidosRegistroDispositivo camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
+            camposInvalidosRegistroDispositivo = new CamposInvalidosRegistroDispositivo(categoriaDispositivoValida, claveDispositivoValida, descripcionDispositivoValida, estatusDispositivoValido, fechaIngresoDispositivoValida, lugarProyectorControlValida, claveProyectorControlValida);
             mostrarCamposInvalidosRegistroDispositivo(camposInvalidosRegistroDispositivo);
         }
         
@@ -1836,13 +1855,25 @@ public class ControladorInicio implements Initializable {
             ObservableList<Prestamo> prestamos = FXCollections.observableArrayList();
             for (int i = 0; i < prestamoDAO.consultarPrestamos().size(); i++) {
                 if (convertToDate(datePickerReporteFechaBusqueda.getValue()).equals(prestamoDAO.consultarPrestamos().get(i).getFechaPrestamo())) {
-                    prestamos.add(prestamoDAO.consultarPrestamos().get(i));
+                    Prestamo prestamo = prestamoDAO.consultarPrestamos().get(i);
+                    int idPrestatario = prestamo.getPrestatarioId();
+                    for (int j = 0; j < prestatarioDAO.consultarListaPrestarios().size(); j++) {
+                        int idPrestatarioEsperada = prestatarioDAO.consultarListaPrestarios().get(i).getPrestatarioId();
+                        System.out.println("Del prestamo: " + idPrestatario + "\nPrestatario: " + idPrestatarioEsperada);
+                        if (idPrestatario == idPrestatarioEsperada) {
+                            String nombrePrestatario = null;
+                            nombrePrestatario = prestatarioDAO.consultarListaPrestarios().get(i).getNombreCompleto();
+                            prestamo.setNombrePrestatario(nombrePrestatario);
+                        }
+                    }
+                    prestamos.add(prestamo);    
                 }
             }
             tableColumnReporteClave.setCellValueFactory(new PropertyValueFactory("claveDispositivoPrestado"));
             tableColumnReporteFecha.setCellValueFactory(new PropertyValueFactory("fechaPrestamo"));
             tableColumnReporteLugar.setCellValueFactory(new PropertyValueFactory("lugar"));
             tableColumnReporteResponsable.setCellValueFactory(new PropertyValueFactory("nombreRegistra"));
+            tableColumnReportePrestatario.setCellValueFactory(new PropertyValueFactory ("nombrePrestatario"));
             tableViewReportePrestamos.setItems(prestamos);
             
             ObservableList<Devolucion> devoluciones = FXCollections.observableArrayList();
@@ -1884,5 +1915,13 @@ public class ControladorInicio implements Initializable {
             salirVerificacionReporte();
             imageViewMenuLateral.setVisible(true);
         }
+    }
+    
+    @FXML
+    public void mostrarGuiSalir() {
+        labelCamposInvalidosInicioSesion.setVisible(false);
+        textFieldUsuarioInicioSesion.setText("");
+        passwordFielContrasenaInicioSesion.setText("");
+        anchorPaneInicioSesion.setVisible(true);
     }
 }
