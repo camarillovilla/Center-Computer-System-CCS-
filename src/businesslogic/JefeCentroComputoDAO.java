@@ -58,11 +58,11 @@ public class JefeCentroComputoDAO implements IJefeCentroComputoDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(JefeCentroComputoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Campos inválidos en el formulario");        
             alert.setHeaderText("Existen campos invalidos en el formulario");
             alert.setContentText("Revisa los campos del formulario");
-            alert.show();
+            alert.show();*/
         } finally {
             conexion.disconnect();
         }
